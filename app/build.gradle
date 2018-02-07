@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.apollographql.android'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "net.alexandroid.utils.apollotest"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '27.0.3'
+
+    sourceSets {
+        main.java.srcDirs += 'build/generated/source/apollo'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation 'com.apollographql.android:api:0.1.0'
+    implementation "com.apollographql.apollo:apollo-runtime:0.4.2"
+    implementation "com.apollographql.apollo:apollo-android-support:0.4.2"
+    implementation "com.apollographql.apollo:apollo-rx2-support:0.4.2"
+    // the apollo runtime classes needed by auto-generated code
+}

@@ -1,0 +1,44 @@
+query OneTaskQuery($id: ID!){
+	task(id: $id) {
+		id
+		title
+		timestamp
+		comment
+		isCompleted
+	}
+}
+
+query TasksQuery($tasks: TasksSearchInput!){
+	tasks(task:$tasks) {
+		id
+		title
+		timestamp
+		comment
+		isCompleted
+    }
+}
+
+mutation TaskUpdate($id: ID!, $task: TaskInput!){
+	taskUpdate(id: $id, task: $task) {
+		id
+		title
+		timestamp
+		comment
+		isCompleted
+	}
+}
+mutation TaskAdd($task: TaskInput!){
+	taskAdd(task: $task) {
+		id
+		title
+		timestamp
+		comment
+		isCompleted
+	}
+}
+
+mutation TaskDelete($id: ID!){
+    taskDelete(id: $id) {
+        id
+    }
+}
