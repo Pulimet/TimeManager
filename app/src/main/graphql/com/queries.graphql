@@ -42,3 +42,15 @@ mutation TaskDelete($id: ID!){
         id
     }
 }
+
+mutation AuthFB($session: String!){
+    authFB(code: $session) {
+        id
+        email
+        password
+        firstName
+        lastName
+        startWeekOnMonday
+        defaultView
+    }
+}
