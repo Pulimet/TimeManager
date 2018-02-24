@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ApolloTest</string>
+
+    <string name="facebook_app_id">162772854519499</string>
+    <string name="fb_login_protocol_scheme">fb162772854519499</string>
+    <string name="fb_token">fb_token</string>
 </resources>
