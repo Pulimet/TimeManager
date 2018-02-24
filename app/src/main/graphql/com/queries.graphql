@@ -54,3 +54,15 @@ mutation AuthFB($session: String!){
         defaultView
     }
 }
+
+mutation AuthLocal($user: AuthLocalInput!, $isSignUp: Boolean){
+    authLocal(user: $user, isSignup: $isSignUp) {
+        id
+        email
+        password
+        firstName
+        lastName
+        startWeekOnMonday
+        defaultView
+    }
+}
