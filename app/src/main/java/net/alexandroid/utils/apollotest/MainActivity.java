@@ -31,55 +31,30 @@ public class MainActivity extends AppCompatActivity {
 
         TasksSearchInput tasksSearchInput = TasksSearchInput.builder()
                 .searchFromTimestamp((double) System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 10)
-                .searchToTimestamp((double) System.currentTimeMillis())
+                .searchToTimestamp((double) System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 10)
                 .build();
 
 
-        apolloClient.query(
-                TasksQuery.builder()
-                        .tasks(tasksSearchInput)
-                        .build()
-        ).enqueue(new ApolloCall.Callback<TasksQuery.Data>() {
-            @Override
-            public void onResponse(@Nonnull Response<TasksQuery.Data> response) {
-                Log.d("ZAQ", "Response");
-                TasksQuery.Data data = response.data();
-                if (data != null) {
-                    List<TasksQuery.Task> list = data.tasks();
-                    for (TasksQuery.Task task : list) {
-                        Log.d("ZAQ", "" + task.title() + " - " + task);
+        apolloClient.query(TasksQuery.builder().tasks(tasksSearchInput).build())
+                .enqueue(new ApolloCall.Callback<TasksQuery.Data>() {
+                    @Override
+                    public void onResponse(@Nonnull Response<TasksQuery.Data> response) {
+                        Log.d("ZAQ", "Response");
+                        TasksQuery.Data data = response.data();
+                        if (data != null) {
+                            List<TasksQuery.Task> list = data.tasks();
+                            for (TasksQuery.Task task : list) {
+                                Log.d("ZAQ", "" + task.title() + " - " + task);
+                            }
+                        } else {
+                            Log.d("ZAQ", "Data null");
+                        }
                     }
-                }
-            }
 
-            @Override
-            public void onFailure(@Nonnull ApolloException e) {
-                Log.d("ZAQ", "onFailure: " + e.getMessage());
-            }
-           /*  @Override public void onResponse(@Nonnull Response<FeedQuery.Data> dataResponse) {
-
-                final StringBuffer buffer = new StringBuffer();
-                for (FeedQuery.Data.Feed feed : dataResponse.data().feed()) {
-                    buffer.append("name:" + feed.repository().fragments().repositoryFragment().name());
-                    buffer.append(" owner: " + feed.repository().fragments().repositoryFragment().owner().login());
-                    buffer.append(" postedBy: " + feed.postedBy().login());
-                    buffer.append("\n~~~~~~~~~~~");
-                    buffer.append("\n\n");
-                }
-
-                // onResponse returns on a background thread. If you want to make UI updates make sure they are done on the Main Thread.
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override public void run() {
-                        TextView txtResponse = (TextView) findViewById(R.id.txtResponse);
-                        txtResponse.setText(buffer.toString());
+                    @Override
+                    public void onFailure(@Nonnull ApolloException e) {
+                        Log.e("ZAQ", "onFailure: " + e.getMessage());
                     }
                 });
-
-            }
-
-            @Override public void onFailure(@Nonnull Throwable t) {
-                Log.e(TAG, t.getMessage(), t);
-            }*/
-        });
     }
 }
